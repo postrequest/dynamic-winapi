@@ -5,11 +5,21 @@ Provide raw FFI bindings to the Windows API by dynamically loading DLLs and reso
 This project is not a replacement for the [winapi-rs](https://github.com/retep998/winapi-rs) crate and you will more than likely require it if you use this project.
 
 ## Example
+
+Cargo.toml
+```toml
+[dependencies]
+base64 = "0.13"
+dynamic-winapi = { git = "https://github.com/postrequest/dynamic-winapi", branch = "main" }
+winapi = { version = "0.3", features = [] }
+```
+main.rs:
 ```Rust
 use dynamic_winapi::um::{
     processthreadsapi::{CreateRemoteThreadEx, OpenProcess},
     memoryapi::{VirtualAllocEx, VirtualProtectEx, WriteProcessMemory},
 };
+use winapi::ctypes::c_void;
 use winapi::um::winnt::{
     MEM_COMMIT, PAGE_EXECUTE_READ, PAGE_READWRITE, PROCESS_ALL_ACCESS,
 };
