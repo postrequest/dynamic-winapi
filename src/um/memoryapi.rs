@@ -1,12 +1,15 @@
-use ctypes::c_void;
-use shared::basetsd::{PSIZE_T, PULONG_PTR, SIZE_T, ULONG64, ULONG_PTR};
-use shared::minwindef::{
+#![allow(non_snake_case)]
+use winapi::ctypes::c_void;
+use winapi::shared::basetsd::{PSIZE_T, PULONG_PTR, SIZE_T, ULONG64, ULONG_PTR};
+use winapi::shared::minwindef::{
     BOOL, DWORD, LPCVOID, LPDWORD, LPVOID, PBOOL, PDWORD, PULONG, UINT, ULONG,
 };
-use um::minwinbase::{LPSECURITY_ATTRIBUTES, PSECURITY_ATTRIBUTES};
-use um::winnt::{
-    HANDLE, LPCWSTR, PCWSTR, PMEMORY_BASIC_INFORMATION, PVOID, SECTION_ALL_ACCESS,
-    SECTION_MAP_EXECUTE_EXPLICIT, SECTION_MAP_READ, SECTION_MAP_WRITE,
+use winapi::um::minwinbase::{LPSECURITY_ATTRIBUTES, PSECURITY_ATTRIBUTES};
+use winapi::um::winnt::{
+    HANDLE, LPCWSTR, PCWSTR, PMEMORY_BASIC_INFORMATION, PVOID,
+};
+use winapi::um::memoryapi::{
+    OFFER_PRIORITY, MEMORY_RESOURCE_NOTIFICATION_TYPE, PBAD_MEMORY_CALLBACK_ROUTINE, PWIN32_MEMORY_RANGE_ENTRY,
 };
 
 use crate::get_k32_fn;

@@ -3,7 +3,7 @@ use winapi::ctypes::c_int;
 use winapi::shared::basetsd::{DWORD_PTR, PSIZE_T, PULONG_PTR, SIZE_T, ULONG_PTR};
 use winapi::shared::guiddef::LPCGUID;
 use winapi::shared::minwindef::{
-    BOOL, DWORD, FARPROC, LPCVOID, LPDWORD, LPFILETIME, LPVOID, PBOOL, PDWORD, PULONG, UINT
+    BOOL, DWORD, LPCVOID, LPDWORD, LPFILETIME, LPVOID, PBOOL, PDWORD, PULONG, UINT
 };
 use winapi::um::minwinbase::{LPCONTEXT, LPSECURITY_ATTRIBUTES, LPTHREAD_START_ROUTINE};
 use winapi::um::winnt::{
