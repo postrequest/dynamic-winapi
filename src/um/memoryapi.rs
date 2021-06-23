@@ -8,6 +8,9 @@ use um::winnt::{
     HANDLE, LPCWSTR, PCWSTR, PMEMORY_BASIC_INFORMATION, PVOID, SECTION_ALL_ACCESS,
     SECTION_MAP_EXECUTE_EXPLICIT, SECTION_MAP_READ, SECTION_MAP_WRITE,
 };
+
+use crate::get_k32_fn;
+
 pub fn VirtualAlloc() -> Option<unsafe fn(
     lpAddress: LPVOID,
     dwSize: SIZE_T,
