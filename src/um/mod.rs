@@ -145,7 +145,7 @@
 //pub mod lmwksta;
 //pub mod lowlevelmonitorconfigurationapi;
 //pub mod lsalookup;
-//pub mod memoryapi;
+pub mod memoryapi;
 //pub mod minschannel;
 //pub mod minwinbase;
 //pub mod mmdeviceapi;
