@@ -1,75 +1,95 @@
-// Licensed under the Apache License, Version 2.0
-// <LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
-// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your option.
-// All files in the project carrying such notice may not be copied, modified, or distributed
-// except according to those terms.
-//! ApiSet Contract for api-ms-win-core-errorhandling-l1
-use shared::basetsd::ULONG_PTR;
-use shared::minwindef::{BOOL, DWORD, LPDWORD, UINT, ULONG};
-use um::winnt::{
+#![allow(non_snake_case)]
+use winapi::shared::basetsd::ULONG_PTR;
+use winapi::shared::minwindef::{BOOL, DWORD, LPDWORD, UINT, ULONG};
+use winapi::um::winnt::{
     EXCEPTION_POINTERS, LONG, LPCSTR, LPCWSTR, PCONTEXT, PEXCEPTION_RECORD,
     PVECTORED_EXCEPTION_HANDLER, PVOID,
 };
-FN!{stdcall PTOP_LEVEL_EXCEPTION_FILTER(
+use winapi::um::errhandlingapi::LPTOP_LEVEL_EXCEPTION_FILTER;
+
+use crate::get_k32_fn;
+
+pub fn RaiseException() -> Option<unsafe fn(
+    dwExceptionCode: DWORD,
+    dwExceptionFlags: DWORD,
+    nNumberOfArguments: DWORD,
+    lpArguments: *const ULONG_PTR,
+)> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("RaiseException\0")) ) } )
+}
+pub fn UnhandledExceptionFilter() -> Option<unsafe fn(
     ExceptionInfo: *mut EXCEPTION_POINTERS,
-) -> LONG}
-pub type LPTOP_LEVEL_EXCEPTION_FILTER = PTOP_LEVEL_EXCEPTION_FILTER;
-extern "system" {
-    pub fn RaiseException(
-        dwExceptionCode: DWORD,
-        dwExceptionFlags: DWORD,
-        nNumberOfArguments: DWORD,
-        lpArguments: *const ULONG_PTR,
-    );
-    pub fn UnhandledExceptionFilter(
-        ExceptionInfo: *mut EXCEPTION_POINTERS,
-    ) -> LONG;
-    pub fn SetUnhandledExceptionFilter(
-        lpTopLevelExceptionFilter: LPTOP_LEVEL_EXCEPTION_FILTER,
-    ) -> LPTOP_LEVEL_EXCEPTION_FILTER;
-    pub fn GetLastError() -> DWORD;
-    pub fn SetLastError(
-        dwErrCode: DWORD,
-    );
-    pub fn GetErrorMode() -> UINT;
-    pub fn SetErrorMode(
-        uMode: UINT,
-    ) -> UINT;
-    pub fn AddVectoredExceptionHandler(
-        First: ULONG,
-        Handler: PVECTORED_EXCEPTION_HANDLER,
-    ) -> PVOID;
-    pub fn RemoveVectoredExceptionHandler(
-        Handle: PVOID,
-    ) -> ULONG;
-    pub fn AddVectoredContinueHandler(
-        First: ULONG,
-        Handler: PVECTORED_EXCEPTION_HANDLER,
-    ) -> PVOID;
-    pub fn RemoveVectoredContinueHandler(
-        Handle: PVOID,
-    ) -> ULONG;
+) -> LONG> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("UnhandledExceptionFilter\0")) ) } )
 }
-// RestoreLastError
-extern "system" {
-    pub fn RaiseFailFastException(
-        pExceptionRecord: PEXCEPTION_RECORD,
-        pContextRecord: PCONTEXT,
-        dwFlags: DWORD,
-    );
-    pub fn FatalAppExitA(
-        uAction: UINT,
-        lpMessageText: LPCSTR,
-    );
-    pub fn FatalAppExitW(
-        uAction: UINT,
-        lpMessageText: LPCWSTR,
-    );
-    pub fn GetThreadErrorMode() -> DWORD;
-    pub fn SetThreadErrorMode(
-        dwNewMode: DWORD,
-        lpOldMode: LPDWORD,
-    ) -> BOOL;
+pub fn SetUnhandledExceptionFilter() -> Option<unsafe fn(
+    lpTopLevelExceptionFilter: LPTOP_LEVEL_EXCEPTION_FILTER,
+) -> LPTOP_LEVEL_EXCEPTION_FILTER> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("SetUnhandledExceptionFilter\0")) ) } )
 }
-// What library provides this function?
-// TerminateProcessOnMemoryExhaustion
+pub fn GetLastError() -> Option<unsafe fn() -> DWORD> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("GetLastError\0")) ) } )
+}
+pub fn SetLastError() -> Option<unsafe fn(
+    dwErrCode: DWORD,
+)> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("SetLastError\0")) ) } )
+}
+pub fn GetErrorMode() -> Option<unsafe fn() -> UINT> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("GetErrorMode\0")) ) } )
+}
+pub fn SetErrorMode() -> Option<unsafe fn(
+    uMode: UINT,
+) -> UINT> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("SetErrorMode\0")) ) } )
+}
+pub fn AddVectoredExceptionHandler() -> Option<unsafe fn(
+    First: ULONG,
+    Handler: PVECTORED_EXCEPTION_HANDLER,
+) -> PVOID> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("AddVectoredExceptionHandler\0")) ) } )
+}
+pub fn RemoveVectoredExceptionHandler() -> Option<unsafe fn(
+    Handle: PVOID,
+) -> ULONG> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("RemoveVectoredExceptionHandler\0")) ) } )
+}
+pub fn AddVectoredContinueHandler() -> Option<unsafe fn(
+    First: ULONG,
+    Handler: PVECTORED_EXCEPTION_HANDLER,
+) -> PVOID> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("AddVectoredContinueHandler\0")) ) } )
+}
+pub fn RemoveVectoredContinueHandler() -> Option<unsafe fn(
+    Handle: PVOID,
+) -> ULONG> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("RemoveVectoredContinueHandler\0")) ) } )
+}
+pub fn RaiseFailFastException() -> Option<unsafe fn(
+    pExceptionRecord: PEXCEPTION_RECORD,
+    pContextRecord: PCONTEXT,
+    dwFlags: DWORD,
+)> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("RaiseFailFastException\0")) ) } )
+}
+pub fn FatalAppExitA() -> Option<unsafe fn(
+    uAction: UINT,
+    lpMessageText: LPCSTR,
+)> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("FatalAppExitA\0")) ) } )
+}
+pub fn FatalAppExitW() -> Option<unsafe fn(
+    uAction: UINT,
+    lpMessageText: LPCWSTR,
+)> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("FatalAppExitW\0")) ) } )
+}
+pub fn GetThreadErrorMode() -> Option<unsafe fn() -> DWORD> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("GetThreadErrorMode\0")) ) } )
+}
+pub fn SetThreadErrorMode() -> Option<unsafe fn(
+    dwNewMode: DWORD,
+    lpOldMode: LPDWORD,
+) -> BOOL> {
+    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("SetThreadErrorMode\0")) ) } )
+}
