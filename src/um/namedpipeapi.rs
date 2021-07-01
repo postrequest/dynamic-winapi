@@ -3,7 +3,7 @@ use winapi::shared::minwindef::{BOOL, DWORD, LPDWORD, LPVOID, ULONG};
 use winapi::um::minwinbase::{LPOVERLAPPED, LPSECURITY_ATTRIBUTES};
 use winapi::um::winnt::{HANDLE, LPCWSTR, LPWSTR, PHANDLE};
 
-use crate::get_k32_fn;
+use crate::{get_advapi32_fn, get_k32_fn};
 
 pub fn CreatePipe() -> Option<unsafe fn(
     hReadPipe: PHANDLE,
@@ -81,7 +81,7 @@ pub fn GetNamedPipeClientComputerNameW() -> Option<unsafe fn(
 pub fn ImpersonateNamedPipeClient() -> Option<unsafe fn(
     hNamedPipe: HANDLE,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("ImpersonateNamedPipeClient\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("ImpersonateNamedPipeClient\0")) ) } )
 }
 pub fn GetNamedPipeInfo() -> Option<unsafe fn(
     hNamedPipe: HANDLE,

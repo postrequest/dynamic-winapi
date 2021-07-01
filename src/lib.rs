@@ -28,6 +28,11 @@ pub fn get_k32_fn(fn_name: &str) -> FARPROC {
     get_fn(k32_handle, fn_name)
 }
 
+pub fn get_advapi32_fn(fn_name: &str) -> FARPROC {
+    let dll_handle = get_dll(obfstr::obfstr!("advapi32.dll"));
+    get_fn(dll_handle, fn_name)
+}
+
 pub fn get_wide(s: &str) -> Vec<u16> {
     OsStr::new(s).encode_wide().chain(std::iter::once(0)).collect()
 }

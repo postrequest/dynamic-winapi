@@ -41,7 +41,7 @@ use winapi::um::winbase::{
     UMS_THREAD_INFO_CLASS,
 };
 
-use crate::get_k32_fn;
+use crate::{get_advapi32_fn, get_k32_fn};
 
 pub fn GlobalAlloc() -> Option<unsafe fn(
     uFlags: UINT,
@@ -1982,19 +1982,19 @@ pub fn GetFileBandwidthReservation() -> Option<unsafe fn(
 pub fn DeregisterEventSource() -> Option<unsafe fn(
     hEventLog: HANDLE,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("DeregisterEventSource\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("DeregisterEventSource\0")) ) } )
 }
 pub fn RegisterEventSourceA() -> Option<unsafe fn(
     lpUNCServerName: LPCSTR,
     lpSourceName: LPCSTR,
 ) -> HANDLE> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("RegisterEventSourceA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("RegisterEventSourceA\0")) ) } )
 }
 pub fn RegisterEventSourceW() -> Option<unsafe fn(
     lpUNCServerName: LPCWSTR,
     lpSourceName: LPCWSTR,
 ) -> HANDLE> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("RegisterEventSourceW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("RegisterEventSourceW\0")) ) } )
 }
 pub fn ReportEventA() -> Option<unsafe fn(
     hEventLog: HANDLE,
@@ -2007,7 +2007,7 @@ pub fn ReportEventA() -> Option<unsafe fn(
     lpStrings: *mut LPCSTR,
     lpRawData: LPVOID,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("ReportEventA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("ReportEventA\0")) ) } )
 }
 pub fn ReportEventW() -> Option<unsafe fn(
     hEventLog: HANDLE,
@@ -2020,7 +2020,7 @@ pub fn ReportEventW() -> Option<unsafe fn(
     lpStrings: *mut LPCWSTR,
     lpRawData: LPVOID,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("ReportEventW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("ReportEventW\0")) ) } )
 }
 pub fn ReadDirectoryChangesW() -> Option<unsafe fn(
     hDirectory: HANDLE,
@@ -2095,7 +2095,7 @@ pub fn LookupAccountSidA() -> Option<unsafe fn(
     cchReferencedDomainName: LPDWORD,
     peUse: PSID_NAME_USE,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LookupAccountSidA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LookupAccountSidA\0")) ) } )
 }
 pub fn LookupAccountSidW() -> Option<unsafe fn(
     lpSystemName: LPCWSTR,
@@ -2106,7 +2106,7 @@ pub fn LookupAccountSidW() -> Option<unsafe fn(
     cchReferencedDomainName: LPDWORD,
     peUse: PSID_NAME_USE,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LookupAccountSidW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LookupAccountSidW\0")) ) } )
 }
 pub fn LookupAccountNameA() -> Option<unsafe fn(
     lpSystemName: LPCSTR,
@@ -2135,14 +2135,14 @@ pub fn LookupPrivilegeValueA() -> Option<unsafe fn(
     lpName: LPCSTR,
     lpLuid: PLUID,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LookupPrivilegeValueA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LookupPrivilegeValueA\0")) ) } )
 }
 pub fn LookupPrivilegeValueW() -> Option<unsafe fn(
     lpSystemName: LPCWSTR,
     lpName: LPCWSTR,
     lpLuid: PLUID,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LookupPrivilegeValueW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LookupPrivilegeValueW\0")) ) } )
 }
 pub fn LookupPrivilegeNameA() -> Option<unsafe fn(
     lpSystemName: LPCSTR,
@@ -2150,7 +2150,7 @@ pub fn LookupPrivilegeNameA() -> Option<unsafe fn(
     lpName: LPSTR,
     cchName: LPDWORD,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LookupPrivilegeNameA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LookupPrivilegeNameA\0")) ) } )
 }
 pub fn LookupPrivilegeNameW() -> Option<unsafe fn(
     lpSystemName: LPCWSTR,
@@ -2158,7 +2158,7 @@ pub fn LookupPrivilegeNameW() -> Option<unsafe fn(
     lpName: LPWSTR,
     cchName: LPDWORD,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LookupPrivilegeNameW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LookupPrivilegeNameW\0")) ) } )
 }
 pub fn BuildCommDCBA() -> Option<unsafe fn(
     lpDef: LPCSTR,
@@ -2258,13 +2258,13 @@ pub fn GetUserNameA() -> Option<unsafe fn(
     lpBuffer: LPSTR,
     pcbBuffer: LPDWORD,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("GetUserNameA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("GetUserNameA\0")) ) } )
 }
 pub fn GetUserNameW() -> Option<unsafe fn(
     lpBuffer: LPWSTR,
     pcbBuffer: LPDWORD,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("GetUserNameW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("GetUserNameW\0")) ) } )
 }
 pub fn LogonUserA() -> Option<unsafe fn(
     lpUsername: LPCSTR,
@@ -2274,7 +2274,7 @@ pub fn LogonUserA() -> Option<unsafe fn(
     dwLogonProvider: DWORD,
     phToken: PHANDLE,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LogonUserA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LogonUserA\0")) ) } )
 }
 pub fn LogonUserW() -> Option<unsafe fn(
     lpUsername: LPCWSTR,
@@ -2284,7 +2284,7 @@ pub fn LogonUserW() -> Option<unsafe fn(
     dwLogonProvider: DWORD,
     phToken: PHANDLE,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LogonUserW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LogonUserW\0")) ) } )
 }
 pub fn LogonUserExA() -> Option<unsafe fn(
     lpUsername: LPCSTR,
@@ -2298,7 +2298,7 @@ pub fn LogonUserExA() -> Option<unsafe fn(
     pdwProfileLength: LPDWORD,
     pQuotaLimits: PQUOTA_LIMITS,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LogonUserExA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LogonUserExA\0")) ) } )
 }
 pub fn LogonUserExW() -> Option<unsafe fn(
     lpUsername: LPCWSTR,
@@ -2312,7 +2312,7 @@ pub fn LogonUserExW() -> Option<unsafe fn(
     pdwProfileLength: LPDWORD,
     pQuotaLimits: PQUOTA_LIMITS,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("LogonUserExW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("LogonUserExW\0")) ) } )
 }
 pub fn CreateProcessWithLogonW() -> Option<unsafe fn(
     lpUsername: LPCWSTR,
@@ -2327,7 +2327,7 @@ pub fn CreateProcessWithLogonW() -> Option<unsafe fn(
     lpStartupInfo: LPSTARTUPINFOW,
     lpProcessInformation: LPPROCESS_INFORMATION,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("CreateProcessWithLogonW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("CreateProcessWithLogonW\0")) ) } )
 }
 pub fn CreateProcessWithTokenW() -> Option<unsafe fn(
     hToken: HANDLE,
@@ -2340,7 +2340,7 @@ pub fn CreateProcessWithTokenW() -> Option<unsafe fn(
     lpStartupInfo: LPSTARTUPINFOW,
     lpProcessInformation: LPPROCESS_INFORMATION,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("CreateProcessWithTokenW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("CreateProcessWithTokenW\0")) ) } )
 }
 pub fn IsTokenUntrusted() -> Option<unsafe fn(
     TokenHandle: HANDLE,
@@ -2418,12 +2418,12 @@ pub fn AddIntegrityLabelToBoundaryDescriptor() -> Option<unsafe fn(
 pub fn GetCurrentHwProfileA() -> Option<unsafe fn(
     lpHwProfileInfo: LPHW_PROFILE_INFOA,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("GetCurrentHwProfileA\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("GetCurrentHwProfileA\0")) ) } )
 }
 pub fn GetCurrentHwProfileW() -> Option<unsafe fn(
     lpHwProfileInfo: LPHW_PROFILE_INFOW,
 ) -> BOOL> {
-    Some( unsafe { std::mem::transmute( get_k32_fn(obfstr::obfstr!("GetCurrentHwProfileW\0")) ) } )
+    Some( unsafe { std::mem::transmute( get_advapi32_fn(obfstr::obfstr!("GetCurrentHwProfileW\0")) ) } )
 }
 pub fn VerifyVersionInfoA() -> Option<unsafe fn(
     lpVersionInformation: LPOSVERSIONINFOEXA,
